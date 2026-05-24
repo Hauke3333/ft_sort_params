@@ -19,7 +19,7 @@ void	sort_args(int *pos, int n_arg, char **argv)
 	i = 0;
 	j = 0;
 	swapped = 0;
-	while (i < n_arg - 1)
+	while (i < n_arg - 1 && argv[pos[i]][j] && argv[pos[i + 1]][j])
 	{
 		if (argv[pos[i]][j] > argv[pos[i + 1]][j])
 		{
@@ -63,7 +63,7 @@ void	write_args(int	*pos, int n_arg, char **argv)
 
 int	main(int argc, char **argv)
 {
-	int	pos[100];
+	int	pos[argc - 1];
 	int	i;
 
 	if (argc == 1)
