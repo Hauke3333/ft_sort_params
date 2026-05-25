@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_sort_params.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: hawurps <hawurps@student.42wolfsburg.      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/05/25 09:19:05 by hawurps           #+#    #+#             */
+/*   Updated: 2026/05/25 09:19:27 by hawurps          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <unistd.h>
 #include <stdio.h>
 
@@ -10,11 +22,10 @@ void	swap_pos(int i, int *pos)
 	pos[i + 1] = temp;
 }
 
-void	sort_args(int *pos, int n_arg, char **argv)
+int	sort_args(int *pos, int n_arg, char **argv, int swapped)
 {
 	int	i;
 	int	j;
-	int	swapped;
 
 	i = 0;
 	j = 0;
@@ -36,8 +47,7 @@ void	sort_args(int *pos, int n_arg, char **argv)
 			i++;
 		}
 	}
-	if (swapped)
-		sort_args(pos, n_arg, argv);
+	return (swapped);
 }
 
 void	write_args(int	*pos, int n_arg, char **argv)
@@ -65,6 +75,7 @@ int	main(int argc, char **argv)
 {
 	int	pos[100];
 	int	i;
+	int	swapped;
 
 	if (argc == 1)
 		return (0);
@@ -76,7 +87,9 @@ int	main(int argc, char **argv)
 			pos[i - 1] = i;
 			i++;
 		}
-		sort_args(pos, argc - 1, argv);
+		swapped = 1;
+		while (swapped)
+			swapped = sort_args(pos, argc - 1, argv, swapped);
 		write_args(pos, argc - 1, argv);
 	}
 	return (0);
